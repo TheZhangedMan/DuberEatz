@@ -36,42 +36,42 @@ public class DuberEatz {
       }
     }
     String[] lines = new String[length];
-    for (int k = 0; k < length; k++) {
-      lines[k] = fileInput.nextLine();
+    for (int i = 0; i < length; i++) {
+      lines[i] = fileInput.nextLine();
     }
     String[][] map = new String[length][width];
     System.out.print("Unsolved Map:");
-    for (int l = 0; l < length; l++) {
+    for (int i = 0; i < length; i++) {
       System.out.print("\n");
-      for (int m = 0; m < width; m++) {
-        map[l][m] = lines[l].substring(m, m + 1);
-        if (map[l][m].equals("S")) { //Starting position coordinates.
-          yCoor = l;
-          xCoor = m;
+      for (int j = 0; j < width; j++) {
+        map[i][j] = lines[i].substring(j, j + 1);
+        if (map[i][j].equals("S")) { //Starting position coordinates.
+          yCoor = i;
+          xCoor = j;
         }
-        System.out.print(map[l][m]);
+        System.out.print(map[i][j]);
       }
     }
     int result = solve(map, visits, yCoor, xCoor, 0, 0, 0);
     outputPPM.print("P3\n" + (width * 10) + " " + (length * 10) + "\n255\n");
-    for (int d = 0; d < length; d++) {
-      for (int e = 0; e < 10; e++) { //The length of each PPM map tile is ten pixels.
-        for (int f = 0; f < width; f++) {
-          for (int g = 0; g < 10; g++) { //The width of each PPM map tile is ten pixels.
-            if (optimal[d][f].equals("U")) {
-              optimal[d][f] = "M";
-            } else if (trail[d][f] == true) { //If a tile has been visited, mark it as part of the trail to compensate for erased trails.
-              optimal[d][f] = "x";
+    for (int i = 0; i < length; i++) {
+      for (int j = 0; j < 10; j++) { //The length of each PPM map tile is ten pixels.
+        for (int k = 0; k < width; k++) {
+          for (int l = 0; l < 10; l++) { //The width of each PPM map tile is ten pixels.
+            if (optimal[i][k].equals("U")) {
+              optimal[i][k] = "M";
+            } else if (trail[i][k] == true) { //If a tile has been visited, mark it as part of the trail to compensate for erased trails.
+              optimal[i][k] = "x";
             }
-            if (optimal[d][f].equals("S")) {
+            if (optimal[i][k].equals("S")) {
               outputPPM.print("100 220 120 ");
-            } else if (optimal[d][f].equals("X")) {
+            } else if (optimal[i][k].equals("X")) {
               outputPPM.print("100 160 220 ");
-            } else if (optimal[d][f].equals("x")) {
+            } else if (optimal[i][k].equals("x")) {
               outputPPM.print("240 50 50 ");
-            } else if (optimal[d][f].equals(" ")) {
+            } else if (optimal[i][k].equals(" ")) {
               outputPPM.print("160 160 160 ");
-            } else if (optimal[d][f].equals("M")) {
+            } else if (optimal[i][k].equals("M")) {
               outputPPM.print("250 230 30 ");
             } else {
               outputPPM.print("0 0 0 ");
@@ -81,39 +81,39 @@ public class DuberEatz {
       }
     }
     System.out.print("\n\nSolved Map:");
-    for (int h = 0; h < length; h++) {
+    for (int i = 0; i < length; i++) {
       System.out.print("\n");
-      for (int i = 0; i < width; i++) {
-        System.out.print(optimal[h][i]);
+      for (int j = 0; j < width; j++) {
+        System.out.print(optimal[i][j]);
       }
     }
     System.out.print("\nThe quickest route with maximized tips takes " + minimum + " moves, earning " + maximum + " tips.");
     outputPPM.close();
     input.close();
     fileInput.close();
-    
+  }
+
  /**
  * solve
  * This method recursively solves the provided maze, saving the optimal path for tips with microwaves taken into account and its trail to the global variables.
  * The method returns a zero if it reaches a dead-end and recursively calls itself if it is able to take a step in any direction.
- * @Param map, a two-dimensional string array that stores the entire map at the current moment.
- * @Param visits, a two-dimensional boolean array that stores the tiles that have been visited.
- * @Param yCoor, an integer that stores the current y-coordinate of Duber.
- * @Param xCoor, an integer that stores the current x-coordinate of Duber.
- * @Param moves, an integer that stores the number of steps that can be influenced by microwaves taken by Duber.
- * @Param total, an integer that stores the total number of steps taken from the starting position by Duber.
- * @Param tips, an integer that stores the total number of tips earned by Duber.
- * @Return 0 if Duber reaches a dead-end and recursively call otherwise.
+ * @param map, a two-dimensional string array that stores the entire map at the current moment.
+ * @param visits, a two-dimensional boolean array that stores the tiles that have been visited.
+ * @param yCoor, an integer that stores the current y-coordinate of Duber.
+ * @param xCoor, an integer that stores the current x-coordinate of Duber.
+ * @param moves, an integer that stores the number of steps that can be influenced by microwaves taken by Duber.
+ * @param total, an integer that stores the total number of steps taken from the starting position by Duber.
+ * @param tips, an integer that stores the total number of tips earned by Duber.
+ * @return 0 if Duber reaches a dead-end and recursively call otherwise.
  */
-    
-  }
+
   public static int solve(String[][] map, boolean[][] visits, int yCoor, int xCoor, int moves, int total, int tips) {
     int up, down, left, right;
     boolean identity = false; //For determining if the current tile is a destination.
     String[][] dupe = copy(map); //Duplicate map each step in order to try all possibilities.
     boolean[][] track = duplicate(visits); //Keep track of visited tiles.
-    for (int r = 0; r < 10; r++) {
-      if (dupe[yCoor][xCoor].equals(Integer.toString(r))) {
+    for (int i = 0; i < 10; i++) {
+      if (dupe[yCoor][xCoor].equals(Integer.toString(i))) {
         identity = true;
       }
     }
@@ -125,10 +125,10 @@ public class DuberEatz {
         tips += Integer.parseInt(dupe[yCoor][xCoor]) - moves;
       }
       dupe[yCoor][xCoor] = "X";
-      for (int s = 0; s < dupe.length; s++) {
-        for (int t = 0; t < dupe[s].length; t++) {
-          for (int u = 0; u < 10; u++) {
-            if (dupe[s][t].equals(Integer.toString(u))) {
+      for (int i = 0; i < dupe.length; i++) {
+        for (int j = 0; j < dupe[i].length; j++) {
+          for (int k = 0; k < 10; k++) {
+            if (dupe[i][j].equals(Integer.toString(k))) {
               completion = false;
             }
           }
@@ -138,10 +138,10 @@ public class DuberEatz {
         if (initialization == true) { //First initialization of the least amount of moves and most amount of tips, acting as a comparison point.
           minimum = moves;
           maximum = tips;
-          for (int v = 0; v < dupe.length; v++) {
-            for (int w = 0; w < dupe[v].length; w++) {
-              optimal[v][w] = dupe[v][w];
-              trail[v][w] = track[v][w];
+          for (int i = 0; i < dupe.length; i++) {
+            for (int j = 0; j < dupe[i].length; j++) {
+              optimal[i][j] = dupe[i][j];
+              trail[i][j] = track[i][j];
             }
           }
           initialization = false;
@@ -149,19 +149,19 @@ public class DuberEatz {
           if (tips > maximum) { //Search for most tips instead of least moves.
             minimum = moves;
             maximum = tips;
-            for (int x = 0; x < dupe.length; x++) {
-              for (int y = 0; y < dupe[x].length; y++) {
-                optimal[x][y] = dupe[x][y];
-                trail[x][y] = track[x][y];
+            for (int i = 0; i < dupe.length; i++) {
+              for (int j = 0; j < dupe[i].length; j++) {
+                optimal[i][j] = dupe[i][j];
+                trail[i][j] = track[i][j];
               }
             }
           }
         }
       } else { //If the map is still incomplete, clear the map of trails to prevent the program from thinking it has hit a dead-end.
-        for (int z = 0; z < dupe.length; z++) {
-          for (int a = 0; a < dupe[z].length; a++) {
-            if (dupe[z][a].equals("x")) {
-              dupe[z][a] = " ";
+        for (int i = 0; i < dupe.length; i++) {
+          for (int j = 0; j < dupe[i].length; j++) {
+            if (dupe[i][j].equals("x")) {
+              dupe[i][j] = " ";
             }
           }
         }
@@ -170,10 +170,10 @@ public class DuberEatz {
     }
     if (dupe[yCoor][xCoor].equals("M")) {
       dupe[yCoor][xCoor] = "U"; //Mark the microwave as used.
-      for (int b = 0; b < dupe.length; b++) { //Clear the map of trails to prevent the program from thinking it has hit a dead-end.
-        for (int c = 0; c < dupe.length; c++) {
-          if (dupe[b][c].equals("x")) {
-            dupe[b][c] = " ";
+      for (int i = 0; i < dupe.length; i++) { //Clear the map of trails to prevent the program from thinking it has hit a dead-end.
+        for (int j = 0; j < dupe.length; j++) {
+          if (dupe[i][j].equals("x")) {
+            dupe[i][j] = " ";
           }
         }
       }
@@ -202,15 +202,15 @@ public class DuberEatz {
  * copy
  * This method creates copies of the current map so that the recursive method is able to try all possibilities.
  * This method returns a copy of the current map with trails.
- * @Param map, a two-dimensional string array that stores the current map.
- * @Return the copied map.
+ * @param map, a two-dimensional string array that stores the current map.
+ * @return the copied map.
  */
   
   public static String[][] copy(String[][] map) {
     String[][] replica = new String[map.length][map[0].length];
-    for (int n = 0; n < map.length; n++) {
-      for (int o = 0; o < map[n].length; o++) {
-        replica[n][o] = map[n][o];
+    for (int i = 0; i < map.length; i++) {
+      for (int j = 0; j < map[i].length; j++) {
+        replica[i][j] = map[i][j];
       }
     }
     return replica;
@@ -220,15 +220,15 @@ public class DuberEatz {
  * duplicate
  * This method creates copies of all the current visited tiles, keeping track of the trail.
  * This method returns a copy of the current visited tiles.
- * @Param visits, a two-dimensional boolean array that stores visited tiles.
- * @Return the copied visited tiles.
+ * @param visits, a two-dimensional boolean array that stores visited tiles.
+ * @return the copied visited tiles.
  */
   
   public static boolean[][] duplicate(boolean[][] visits) {
     boolean[][] replica = new boolean[visits.length][visits[0].length];
-    for (int p = 0; p < visits.length; p++) {
-      for (int q = 0; q < visits[p].length; q++) {
-        replica[p][q] = visits[p][q];
+    for (int i = 0; i < visits.length; i++) {
+      for (int j = 0; j < visits[i].length; j++) {
+        replica[i][j] = visits[i][j];
       }
     }
     return replica;
