@@ -1,5 +1,6 @@
 # DuberEatz
- A recursive pathfinding algorithm for solving mazes, simulating food delivery.
+A recursive pathfinding algorithm for solving mazes, simulating food delivery.
+* This is the summative for the second unit of ICS3U6, demonstrating critical thinking and recursion
 * Mazes are text-based
     * The first two values of the text file of a maze will always be length and width of the maze respectively
     * Hashtags represent walls
