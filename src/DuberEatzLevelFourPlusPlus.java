@@ -3,14 +3,14 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
- * DuberEatz.java
+ * DuberEatzLevelFourPlusPlus.java
  * Ethan Zhang
  * November 6, 2019
  * This code solve mazes with one or more destinations, finding the least amount of moves required
  * to maximize tips with microwaves taken into account and then creating a PPM file for the solved maze.
  */
 
-public class DuberEatz {
+public class DuberEatzLevelFourPlusPlus {
   public static boolean initialization = true; //For setting the very first amount of steps and tips to be compared to.
   public static int minimum, maximum; //Minimum steps and maximum tips.
   public static String[][] optimal; //Optimal path.
