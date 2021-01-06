@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
- * DuberEatzLevelFour.java
+ * DuberEatzLevelFourPlus.java
  * Ethan Zhang
  * November 6, 2019
  * This code solve mazes with one or more destinations, finding the least amount of steps required for the most tips and creating a PPM file for the solved maze.
